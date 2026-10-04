@@ -39,7 +39,10 @@ The V0 virtual try-on is a visual simulation. It should not claim exact size or 
 The multimodal analysis returns a structured response with:
 
 - verdict: BUY / MAYBE / SKIP
-- styleMatch
+- styleScore: 0-10
 - visualFit
-- reason
-- pairing
+- why
+- consider
+- pairWith: 2-3 styling suggestions
+
+The analysis compares the original person photo, original garment image, and generated try-on. It deliberately avoids exact size or physical-fit claims.

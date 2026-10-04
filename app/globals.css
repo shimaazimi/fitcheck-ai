@@ -58,6 +58,7 @@ button { cursor: pointer; }
 .metric { padding:20px 22px; border:1px solid var(--line); border-radius:22px; background:#fff9; }
 .metric span { display:block; font-size:11px; text-transform:uppercase; letter-spacing:.14em; color:var(--muted); margin-bottom:7px; }
 .metric strong { font-size:18px; }
+.pairingList { margin:0; padding-left:20px; display:grid; gap:7px; color:var(--ink); font-size:16px; font-weight:650; }
 .notice { max-width:1180px; margin:18px auto 0; color:var(--muted); font-size:12px; line-height:1.5; }
 .error { color:#9a2c2c; font-size:13px; }
 

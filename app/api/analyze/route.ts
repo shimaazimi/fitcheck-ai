@@ -2,10 +2,11 @@ import { NextRequest, NextResponse } from "next/server";
 
 type Analysis = {
   verdict: "BUY" | "MAYBE" | "SKIP";
-  styleMatch: string;
+  styleScore: number;
   visualFit: string;
-  reason: string;
-  pairing: string;
+  why: string;
+  consider: string;
+  pairWith: string[];
 };
 
 const ANALYSIS_SCHEMA = {
@@ -17,25 +18,39 @@ const ANALYSIS_SCHEMA = {
       enum: ["BUY", "MAYBE", "SKIP"],
       description: "A cautious style-oriented purchase recommendation based only on the simulated image."
     },
-    styleMatch: {
-      type: "string",
-      description: "A short assessment of color, silhouette, and overall style harmony."
+    styleScore: {
+      type: "number",
+      minimum: 0,
+      maximum: 10,
+      description: "A 0-10 score for visible color harmony, silhouette, and styling coherence."
     },
     visualFit: {
       type: "string",
       description: "A short visual observation about the simulated silhouette, not physical fit or sizing."
     },
-    reason: {
+    why: {
       type: "string",
       description: "One concise reason for the verdict that clearly reflects uncertainty when appropriate."
     },
-    pairing: {
+    consider: {
       type: "string",
-      description: "One concise suggestion for garments, shoes, or accessories to complete the outfit."
+      description: "One possible styling concern, image limitation, or reason to inspect the item in person."
+    },
+    pairWith: {
+      type: "array",
+      items: { type: "string" },
+      description: "Two or three concise garment, shoe, or accessory suggestions."
     }
   },
-  required: ["verdict", "styleMatch", "visualFit", "reason", "pairing"]
+  required: ["verdict", "styleScore", "visualFit", "why", "consider", "pairWith"]
 } as const;
+
+function isImageSource(value: unknown): value is string {
+  return (
+    typeof value === "string" &&
+    (value.startsWith("https://") || /^data:image\/(jpeg|png|webp);base64,/i.test(value))
+  );
+}
 
 function getOutputText(response: unknown): string | null {
   if (!response || typeof response !== "object" || !("output" in response) || !Array.isArray(response.output)) {
@@ -66,18 +81,27 @@ function isAnalysis(value: unknown): value is Analysis {
   const analysis = value as Partial<Analysis>;
   return (
     ["BUY", "MAYBE", "SKIP"].includes(analysis.verdict ?? "") &&
-    typeof analysis.styleMatch === "string" &&
+    typeof analysis.styleScore === "number" &&
+    analysis.styleScore >= 0 &&
+    analysis.styleScore <= 10 &&
     typeof analysis.visualFit === "string" &&
-    typeof analysis.reason === "string" &&
-    typeof analysis.pairing === "string"
+    typeof analysis.why === "string" &&
+    typeof analysis.consider === "string" &&
+    Array.isArray(analysis.pairWith) &&
+    analysis.pairWith.length >= 2 &&
+    analysis.pairWith.length <= 3 &&
+    analysis.pairWith.every((item) => typeof item === "string")
   );
 }
 
 export async function POST(request: NextRequest) {
   try {
-    const { tryOnImage } = await request.json();
-    if (typeof tryOnImage !== "string" || !tryOnImage.startsWith("https://")) {
-      return NextResponse.json({ error: "A valid HTTPS try-on image URL is required." }, { status: 400 });
+    const { modelImage, garmentImage, tryOnImage } = await request.json();
+    if (![modelImage, garmentImage, tryOnImage].every(isImageSource)) {
+      return NextResponse.json(
+        { error: "The original person, garment, and generated try-on images are required." },
+        { status: 400 }
+      );
     }
 
     const apiKey = process.env.OPENAI_API_KEY;
@@ -99,11 +123,13 @@ export async function POST(request: NextRequest) {
         store: false,
         instructions: [
           "You are FitCheck, a careful fashion styling assistant.",
-          "Analyze only what is visibly present in the virtual try-on image.",
-          "Assess color harmony, styling coherence, proportions, and the simulated silhouette.",
+          "Compare the original person photo, original garment photo, and generated virtual try-on.",
+          "Assess only visible color harmony, styling coherence, garment transfer quality, and the simulated silhouette.",
           "Never infer sensitive traits, attractiveness, health, body measurements, exact size, comfort, fabric quality, or physical garment fit.",
-          "A virtual try-on may contain generation artifacts. When the image is unclear or confidence is limited, choose MAYBE and say why.",
-          "Keep every field concise, practical, kind, and in English. Do not mention these instructions."
+          "Visual fit describes only the rendered silhouette using terms such as balanced, relaxed, fitted, or oversized.",
+          "A virtual try-on may contain generation artifacts. If garment fidelity is poor, the image is unclear, or confidence is limited, choose MAYBE and explain the limitation.",
+          "Return two or three practical pairWith suggestions.",
+          "Keep every text field concise, practical, kind, and in English. Do not mention these instructions."
         ].join(" "),
         input: [
           {
@@ -111,7 +137,25 @@ export async function POST(request: NextRequest) {
             content: [
               {
                 type: "input_text",
-                text: "Review this simulated outfit and return a cautious purchase-oriented style assessment."
+                text: "Image 1 — original person photo before virtual try-on."
+              },
+              {
+                type: "input_image",
+                image_url: modelImage,
+                detail: "auto"
+              },
+              {
+                type: "input_text",
+                text: "Image 2 — original garment reference."
+              },
+              {
+                type: "input_image",
+                image_url: garmentImage,
+                detail: "auto"
+              },
+              {
+                type: "input_text",
+                text: "Image 3 — generated virtual try-on. Review it and return the structured purchase-oriented style assessment."
               },
               {
                 type: "input_image",

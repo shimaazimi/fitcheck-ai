@@ -5,18 +5,20 @@ import ImageUploader from "../components/ImageUploader";
 
 type Analysis = {
   verdict: "BUY" | "MAYBE" | "SKIP";
-  styleMatch: string;
+  styleScore: number;
   visualFit: string;
-  reason: string;
-  pairing: string;
+  why: string;
+  consider: string;
+  pairWith: string[];
 };
 
 const DEMO_ANALYSIS: Analysis = {
   verdict: "BUY",
-  styleMatch: "Strong — the forest green adds depth to the neutral base",
-  visualFit: "The simulated straight silhouette looks balanced",
-  reason: "The overshirt creates a clean layered look, while the restrained palette keeps the outfit versatile.",
-  pairing: "Keep the black trousers and add minimal white sneakers"
+  styleScore: 8.7,
+  visualFit: "Balanced with a relaxed outer layer",
+  why: "The forest-green overshirt adds depth to the neutral base while keeping the outfit versatile.",
+  consider: "The sleeves look slightly relaxed in this simulation; check the real garment proportions before buying.",
+  pairWith: ["Black straight-leg trousers", "Minimal white sneakers", "A simple silver watch"]
 };
 
 function toDataUri(file: File): Promise<string> {
@@ -78,7 +80,7 @@ export default function Home() {
         const analysisResponse = await fetch("/api/analyze", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ tryOnImage: tryOnData.output })
+          body: JSON.stringify({ modelImage, garmentImage, tryOnImage: tryOnData.output })
         });
         const analysisData = await analysisResponse.json();
         if (analysisResponse.ok) {
@@ -128,10 +130,10 @@ export default function Home() {
       </nav>
 
       <section className="hero">
-        <div className="eyebrow">See · Understand · Decide</div>
+        <div className="eyebrow">FitCheck AI · Try on → Analyze → Decide</div>
         <h1>See it before you buy it.</h1>
         <p>
-          Upload a photo of yourself and a clothing item. FitCheck creates a virtual try-on and turns the result into a clearer buying decision.
+          AI-powered virtual try-on that helps you understand a look and decide what is actually worth buying.
         </p>
       </section>
 
@@ -157,7 +159,7 @@ export default function Home() {
               {loading ? "Creating try-on…" : "Try it on"}
             </button>
             <button className="secondary" type="button" disabled={loading} onClick={loadDemo}>
-              Try free demo
+              View sample result
             </button>
             <span className="status">Free demo uses a prepared example. Live try-on requires API keys.</span>
             {error && <span className="error">{error}</span>}
@@ -177,29 +179,39 @@ export default function Home() {
                 <small>FitCheck verdict</small>
                 <h3>{analysis?.verdict ?? (analysisError ? "READY" : "ANALYZING")}</h3>
                 <p>
-                  {analysis?.reason ??
+                  {analysis?.why ??
                     analysisError ??
                     "Your virtual try-on is ready. FitCheck is reviewing the simulated look."}
                 </p>
               </div>
               <div className="metric">
                 <span>Style match</span>
-                <strong>{analysis?.styleMatch ?? (analysisError ? "Unavailable" : "Analyzing…")}</strong>
+                <strong>{analysis ? `${analysis.styleScore.toFixed(1)} / 10` : analysisError ? "Unavailable" : "Analyzing…"}</strong>
               </div>
               <div className="metric">
                 <span>Visual fit</span>
                 <strong>{analysis?.visualFit ?? (analysisError ? "Unavailable" : "Analyzing…")}</strong>
               </div>
               <div className="metric">
+                <span>Consider</span>
+                <strong>{analysis?.consider ?? (analysisError ? "Unavailable" : "Analyzing…")}</strong>
+              </div>
+              <div className="metric">
                 <span>Pair it with</span>
-                <strong>{analysis?.pairing ?? (analysisError ? "Unavailable" : "Analyzing…")}</strong>
+                {analysis ? (
+                  <ul className="pairingList">
+                    {analysis.pairWith.map((item) => <li key={item}>{item}</li>)}
+                  </ul>
+                ) : (
+                  <strong>{analysisError ? "Unavailable" : "Analyzing…"}</strong>
+                )}
               </div>
               <button className="secondary" onClick={reset}>Try another item</button>
             </div>
           </section>
           <p className="notice">
             {demoMode && "This prepared example demonstrates the intended FitCheck experience without paid APIs. "}
-            FitCheck V0 provides a visual simulation and style-oriented guidance. It does not claim exact physical sizing or garment fit without body measurements and brand size-chart data.
+            FitCheck provides visual styling guidance based on images. It does not guarantee physical garment fit or sizing.
           </p>
         </>
       )}
