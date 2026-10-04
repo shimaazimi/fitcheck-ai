@@ -46,7 +46,9 @@ button { cursor: pointer; }
 .secondary:disabled { opacity:.45; cursor:not-allowed; }
 .status { color:var(--muted); font-size:13px; }
 
-.resultGrid { max-width:1180px; margin:42px auto 0; display:grid; grid-template-columns: 1.1fr .9fr; gap:22px; }
+.resultGrid { max-width:1180px; margin:42px auto 0; display:grid; grid-template-columns: 1.1fr .9fr; gap:22px; align-items:start; }
+.resultVisual { display:grid; gap:12px; }
+.sectionLabel { font-size:11px; text-transform:uppercase; letter-spacing:.16em; color:var(--muted); font-weight:800; }
 .resultImage { min-height:640px; background:#e8e4dc; border-radius:28px; overflow:hidden; border:1px solid var(--line); display:flex; align-items:center; justify-content:center; }
 .resultImage img { width:100%; height:100%; object-fit:cover; }
 .analysis { display:flex; flex-direction:column; gap:14px; }
@@ -56,8 +58,9 @@ button { cursor: pointer; }
 .verdict h3 { font-size:58px; margin:8px 0 12px; letter-spacing:-.06em; }
 .verdict p { margin:0; color:#d3d3d3; line-height:1.55; }
 .metric { padding:20px 22px; border:1px solid var(--line); border-radius:22px; background:#fff9; }
+.metricRow { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
 .metric span { display:block; font-size:11px; text-transform:uppercase; letter-spacing:.14em; color:var(--muted); margin-bottom:7px; }
-.metric strong { font-size:18px; }
+.metric strong { display:block; font-size:17px; line-height:1.45; }
 .pairingList { margin:0; padding-left:20px; display:grid; gap:7px; color:var(--ink); font-size:16px; font-weight:650; }
 .notice { max-width:1180px; margin:18px auto 0; color:var(--muted); font-size:12px; line-height:1.5; }
 .error { color:#9a2c2c; font-size:13px; }
@@ -66,6 +69,7 @@ button { cursor: pointer; }
   .shell { padding:18px; }
   .nav { margin-bottom:38px; }
   .workspace, .resultGrid { grid-template-columns: 1fr; }
+  .metricRow { grid-template-columns:1fr; }
   .uploader { min-height:300px; }
   .resultImage { min-height:480px; }
   .actions { align-items:flex-start; flex-direction:column; }

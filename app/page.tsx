@@ -14,12 +14,19 @@ type Analysis = {
 
 const DEMO_ANALYSIS: Analysis = {
   verdict: "BUY",
-  styleScore: 8.7,
-  visualFit: "Balanced with a relaxed outer layer",
-  why: "The forest-green overshirt adds depth to the neutral base while keeping the outfit versatile.",
-  consider: "The sleeves look slightly relaxed in this simulation; check the real garment proportions before buying.",
-  pairWith: ["Black straight-leg trousers", "Minimal white sneakers", "A simple silver watch"]
+  styleScore: 8.6,
+  visualFit: "Balanced silhouette",
+  why: "The overall silhouette feels balanced, and the forest-green overshirt adds depth to the neutral base.",
+  consider: "The shoulder and sleeve area appears slightly relaxed, creating a more oversized look.",
+  pairWith: ["Black straight-leg trousers", "Minimal white sneakers", "A small structured bag"]
 };
+
+function verdictCaption(analysis: Analysis | null, hasError: boolean) {
+  if (!analysis) return hasError ? "Analysis unavailable" : "Reviewing the generated look";
+  if (analysis.verdict === "BUY") return "Strong match";
+  if (analysis.verdict === "MAYBE") return "Worth a closer look";
+  return "A better option may exist";
+}
 
 function toDataUri(file: File): Promise<string> {
   return new Promise((resolve, reject) => {
@@ -126,7 +133,7 @@ export default function Home() {
     <main className="shell">
       <nav className="nav">
         <div className="brand">FITCHECK</div>
-        <div className="badge">AI fashion decision engine · Free demo</div>
+        <div className="badge">AI fashion decision engine</div>
       </nav>
 
       <section className="hero">
@@ -168,29 +175,39 @@ export default function Home() {
       ) : (
         <>
           <section className="resultGrid">
-            <div className="resultImage">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={result} alt="Generated virtual try-on" />
+            <div className="resultVisual">
+              <div className="sectionLabel">Your try-on</div>
+              <div className="resultImage">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={result} alt="Generated virtual try-on" />
+              </div>
             </div>
 
             <div className="analysis">
               {demoMode && <div className="demoFlag">Prepared demo · no live API call</div>}
+              <div className="sectionLabel">FitCheck analysis</div>
               <div className="verdict">
                 <small>FitCheck verdict</small>
                 <h3>{analysis?.verdict ?? (analysisError ? "READY" : "ANALYZING")}</h3>
-                <p>
+                <p>{verdictCaption(analysis, Boolean(analysisError))}</p>
+              </div>
+              <div className="metricRow">
+                <div className="metric">
+                  <span>Style match</span>
+                  <strong>{analysis ? `${analysis.styleScore.toFixed(1)} / 10` : analysisError ? "Unavailable" : "Analyzing…"}</strong>
+                </div>
+                <div className="metric">
+                  <span>Visual fit</span>
+                  <strong>{analysis?.visualFit ?? (analysisError ? "Unavailable" : "Analyzing…")}</strong>
+                </div>
+              </div>
+              <div className="metric">
+                <span>Why it works</span>
+                <strong>
                   {analysis?.why ??
                     analysisError ??
-                    "Your virtual try-on is ready. FitCheck is reviewing the simulated look."}
-                </p>
-              </div>
-              <div className="metric">
-                <span>Style match</span>
-                <strong>{analysis ? `${analysis.styleScore.toFixed(1)} / 10` : analysisError ? "Unavailable" : "Analyzing…"}</strong>
-              </div>
-              <div className="metric">
-                <span>Visual fit</span>
-                <strong>{analysis?.visualFit ?? (analysisError ? "Unavailable" : "Analyzing…")}</strong>
+                    "FitCheck is reviewing the simulated look."}
+                </strong>
               </div>
               <div className="metric">
                 <span>Consider</span>
