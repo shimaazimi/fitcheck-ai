@@ -17,3 +17,6 @@ pnpm-debug.log*
 
 # TypeScript
 *.tsbuildinfo
+
+# private application notes
+/notes
