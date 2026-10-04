@@ -20,7 +20,7 @@ Open http://localhost:3000
 
 ## Free demo mode
 
-Click **Try free demo** to open a complete prepared try-on result and decision card without API keys or paid requests. The UI labels this mode clearly as a prepared demo. Live uploads still use the FASHN and OpenAI integrations when their keys are configured.
+Open `/demo` or click **View sample result** to see a complete, public, crawlable try-on result and decision card without API keys or paid requests. Live uploads still use the FASHN and OpenAI integrations when their keys are configured.
 
 ## Current architecture
 
