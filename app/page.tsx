@@ -5,6 +5,8 @@ import { useState } from "react";
 import ImageUploader from "../components/ImageUploader";
 import ResultView, { type Analysis } from "../components/ResultView";
 
+const LIVE_DEMO_ENABLED = process.env.NEXT_PUBLIC_LIVE_DEMO_ENABLED === "true";
+
 function toDataUri(file: File): Promise<string> {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -103,31 +105,51 @@ export default function Home() {
 
       {!result ? (
         <>
-          <section className="workspace">
-            <ImageUploader
-              title="1. Your photo"
-              description="Use a clear front-facing or full-body photo with good lighting."
-              preview={personPreview}
-              onFile={choosePerson}
-            />
-            <ImageUploader
-              title="2. Clothing item"
-              description="Flat-lay, mannequin, or on-model garment photos can work."
-              preview={garmentPreview}
-              onFile={chooseGarment}
-            />
-          </section>
+          {LIVE_DEMO_ENABLED ? (
+            <section className="workspace">
+              <ImageUploader
+                title="1. Your photo"
+                description="Use a clear front-facing or full-body photo with good lighting."
+                preview={personPreview}
+                onFile={choosePerson}
+                capture="user"
+              />
+              <ImageUploader
+                title="2. Clothing item"
+                description="Flat-lay, mannequin, or on-model garment photos can work."
+                preview={garmentPreview}
+                onFile={chooseGarment}
+                capture="environment"
+              />
+            </section>
+          ) : (
+            <section className="demoCallout">
+              <div>
+                <span className="demoLabel">INTERACTIVE PRODUCT WALKTHROUGH</span>
+                <h2>See the complete decision experience.</h2>
+                <p>
+                  Explore a prepared try-on, FitCheck verdict, style match, visual fit, and practical styling
+                  suggestions—all in one result.
+                </p>
+              </div>
+              <Link className="primary buttonLink" href="/demo">
+                View sample result
+              </Link>
+            </section>
+          )}
 
-          <div className="actions">
-            <button className="primary" disabled={!person || !garment || loading} onClick={generate}>
-              {loading ? "Creating try-on…" : "Try it on"}
-            </button>
-            <Link className="secondary buttonLink" href="/demo">
-              View sample result
-            </Link>
-            <span className="status">Explore a sample result or try the live experience when available.</span>
-            {error && <span className="error">{error}</span>}
-          </div>
+          {LIVE_DEMO_ENABLED && (
+            <div className="actions">
+              <button className="primary" disabled={!person || !garment || loading} onClick={generate}>
+                {loading ? "Creating try-on…" : "Try it on"}
+              </button>
+              <Link className="secondary buttonLink" href="/demo">
+                View sample result
+              </Link>
+              <span className="status">Choose two photos or explore the complete sample result.</span>
+              {error && <span className="error">{error}</span>}
+            </div>
+          )}
         </>
       ) : (
         <ResultView result={result} analysis={analysis} analysisError={analysisError} onTryAnother={reset} />

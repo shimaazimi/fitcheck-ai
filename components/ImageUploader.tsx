@@ -7,9 +7,10 @@ type Props = {
   description: string;
   preview: string | null;
   onFile: (file: File) => void;
+  capture?: "user" | "environment";
 };
 
-export default function ImageUploader({ title, description, preview, onFile }: Props) {
+export default function ImageUploader({ title, description, preview, onFile, capture }: Props) {
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   function handleChange(event: ChangeEvent<HTMLInputElement>) {
@@ -37,7 +38,13 @@ export default function ImageUploader({ title, description, preview, onFile }: P
             <span>JPG, PNG or WEBP · clear, well-lit photos work best</span>
           </div>
         )}
-        <input ref={inputRef} type="file" accept="image/jpeg,image/png,image/webp" onChange={handleChange} />
+        <input
+          ref={inputRef}
+          type="file"
+          accept="image/jpeg,image/png,image/webp"
+          capture={capture}
+          onChange={handleChange}
+        />
       </div>
     </section>
   );

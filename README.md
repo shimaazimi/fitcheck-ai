@@ -13,6 +13,7 @@ A small AI-first fashion decision prototype:
 npm install
 cp .env.example .env.local
 # add your FASHN_API_KEY and OPENAI_API_KEY to .env.local
+# set NEXT_PUBLIC_LIVE_DEMO_ENABLED=true only after both integrations are ready
 npm run dev
 ```
 
@@ -20,7 +21,7 @@ Open http://localhost:3000
 
 ## Free demo mode
 
-Open `/demo` or click **View sample result** to see a complete, public, crawlable try-on result and decision card without API keys or paid requests. Live uploads still use the FASHN and OpenAI integrations when their keys are configured.
+Open `/demo` or click **View sample result** to see a complete, public, crawlable try-on result and decision card without API keys or paid requests. Live uploads are hidden by default so public visitors never hit an unconfigured integration. Set `NEXT_PUBLIC_LIVE_DEMO_ENABLED=true` only when both API keys are configured and tested.
 
 ## Current architecture
 

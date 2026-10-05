@@ -47,6 +47,10 @@ button { cursor: pointer; }
 .buttonLink { display:inline-flex; align-items:center; justify-content:center; text-decoration:none; width:max-content; }
 .secondary:disabled { opacity:.45; cursor:not-allowed; }
 .status { color:var(--muted); font-size:13px; }
+.demoCallout { max-width:1180px; margin:0 auto; border:1px solid var(--line); border-radius:28px; padding:42px; background:rgba(255,255,255,.72); display:flex; align-items:center; justify-content:space-between; gap:32px; }
+.demoCallout h2 { margin:8px 0 10px; font-size:clamp(28px,4vw,48px); line-height:1.05; }
+.demoCallout p { margin:0; max-width:680px; color:var(--muted); line-height:1.65; }
+.demoLabel { color:var(--accent); font-size:12px; font-weight:900; letter-spacing:.14em; }
 
 .resultGrid { max-width:1180px; margin:42px auto 0; display:grid; grid-template-columns: 1.1fr .9fr; gap:22px; align-items:start; }
 .resultNav { margin-bottom:18px; }
@@ -77,4 +81,6 @@ button { cursor: pointer; }
   .resultImage { min-height:480px; }
   .actions { align-items:flex-start; flex-direction:column; }
   .actions .primary, .actions .secondary { width:100%; }
+  .demoCallout { align-items:flex-start; flex-direction:column; padding:28px; }
+  .demoCallout .primary { width:100%; }
 }
