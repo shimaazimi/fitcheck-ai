@@ -12,7 +12,10 @@ export default function DemoPage() {
     <main className="shell">
       <nav className="nav resultNav">
         <Link className="brand brandLink" href="/">فیت‌چک</Link>
-        <div className="badge">دستیار هوشمند کمد و خرید</div>
+        <div className="navActions">
+          <Link className="navLink" href="/wardrobe">کمد من</Link>
+          <div className="badge">دستیار هوشمند کمد و خرید</div>
+        </div>
       </nav>
       <ResultView
         result="/demo/result.png"

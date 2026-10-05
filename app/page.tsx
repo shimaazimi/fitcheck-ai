@@ -92,7 +92,10 @@ export default function Home() {
     <main className="shell">
       <nav className="nav">
         <div className="brand">فیت‌چک</div>
-        <div className="badge">دستیار هوشمند کمد و خرید</div>
+        <div className="navActions">
+          <Link className="navLink" href="/wardrobe">کمد من</Link>
+          <div className="badge">دستیار هوشمند کمد و خرید</div>
+        </div>
       </nav>
 
       <section className="hero">
