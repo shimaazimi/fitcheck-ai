@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import DemoUploadPreview from "../../components/DemoUploadPreview";
 import ResultView, { DEMO_ANALYSIS } from "../../components/ResultView";
 
 export const metadata: Metadata = {
@@ -17,12 +18,15 @@ export default function DemoPage() {
           <div className="badge">دستیار هوشمند کمد و خرید</div>
         </div>
       </nav>
-      <ResultView
-        result="/demo/result.png"
-        analysis={DEMO_ANALYSIS}
-        isPreparedDemo
-        tryAnotherHref="/"
-      />
+      <DemoUploadPreview />
+      <div id="sample-result" className="sampleResultAnchor">
+        <ResultView
+          result="/demo/result.png"
+          analysis={DEMO_ANALYSIS}
+          isPreparedDemo
+          tryAnotherHref="/wardrobe"
+        />
+      </div>
     </main>
   );
 }

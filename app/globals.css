@@ -158,6 +158,31 @@ button { cursor: pointer; }
 .itemActions button + button { border-right:1px solid var(--line); }
 .dangerButton { color:#a23b45; }
 
+.demoUploadSection { max-width:1180px; margin:0 auto 76px; border:1px solid var(--line); background:rgba(255,255,255,.58); border-radius:32px; padding:34px; box-shadow:0 20px 60px rgba(55,37,39,.07); }
+.demoUploadHeading { display:flex; align-items:flex-start; justify-content:space-between; gap:24px; margin-bottom:24px; }
+.demoUploadHeading h1 { margin:12px 0 8px; font-size:clamp(32px,5vw,58px); line-height:1.15; }
+.demoUploadHeading p { margin:0; color:var(--muted); }
+.prototypeBadge { display:flex; align-items:center; gap:8px; flex-shrink:0; border:1px solid #d9bbb9; color:#8f5158; background:#fff1f1; border-radius:999px; padding:9px 12px; font-size:11px; font-weight:800; }
+.prototypeBadge i { width:7px; height:7px; border-radius:50%; background:#cf727a; box-shadow:0 0 0 4px rgba(207,114,122,.13); }
+.demoUploadGrid { display:grid; grid-template-columns:1fr 44px 1fr; align-items:center; gap:12px; }
+.demoUploadCard { min-height:330px; position:relative; display:grid; place-items:center; overflow:hidden; cursor:pointer; border:1px dashed #bea9a4; border-radius:26px; background:linear-gradient(145deg,rgba(255,246,245,.9),rgba(239,244,235,.9)); transition:transform .2s ease,border-color .2s ease; }
+.demoUploadCard:hover { transform:translateY(-3px); border-color:#b8737a; }
+.demoUploadCard input { position:absolute; inset:0; opacity:0; cursor:pointer; }
+.demoUploadEmpty { display:grid; justify-items:center; gap:9px; padding:30px; text-align:center; }
+.demoUploadEmpty b { display:grid; place-items:center; width:46px; height:46px; border-radius:50%; background:#2b2325; color:white; }
+.demoUploadEmpty strong { font-size:22px; }
+.demoUploadEmpty span { color:var(--muted); font-size:13px; }
+.demoUploadEmpty em { margin-top:10px; border:1px solid var(--line); background:white; color:var(--ink); border-radius:999px; padding:9px 12px; font-size:11px; font-style:normal; font-weight:800; }
+.demoUploadCard.hasPreview img { width:100%; height:330px; object-fit:cover; }
+.replaceDemoImage { position:absolute; right:14px; bottom:14px; z-index:2; border-radius:999px; padding:9px 12px; background:rgba(255,255,255,.92); font-size:11px; font-weight:800; }
+.uploadFlowArrow { display:grid; place-items:center; width:42px; height:42px; border-radius:50%; background:#2b2325; color:white; font-size:22px; box-shadow:0 10px 25px rgba(43,35,37,.2); }
+.demoUploadFooter { display:flex; align-items:center; justify-content:space-between; gap:20px; margin-top:20px; padding:18px 20px; border-radius:20px; background:rgba(244,238,234,.76); }
+.demoUploadFooter > div { display:grid; gap:4px; }
+.demoUploadFooter strong { font-size:14px; }
+.demoUploadFooter span { color:var(--muted); font-size:11px; line-height:1.7; }
+.demoUploadFooter .primary:disabled { transform:none; box-shadow:none; }
+.sampleResultAnchor { scroll-margin-top:24px; }
+
 @media (max-width: 800px) {
   .shell { padding:18px; }
   .nav { margin-bottom:38px; }
@@ -175,6 +200,10 @@ button { cursor: pointer; }
   .wardrobeLayout { grid-template-columns:1fr; }
   .wardrobeForm { position:relative; top:0; }
   .wardrobeGrid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .demoUploadHeading, .demoUploadFooter { align-items:flex-start; flex-direction:column; }
+  .demoUploadGrid { grid-template-columns:1fr; }
+  .uploadFlowArrow { margin:-7px auto; z-index:2; }
+  .demoUploadFooter .primary { width:100%; }
 }
 
 @media (max-width: 520px) {
