@@ -14,17 +14,24 @@ export type Analysis = {
 export const DEMO_ANALYSIS: Analysis = {
   verdict: "BUY",
   styleScore: 8.6,
-  visualFit: "Balanced silhouette",
-  why: "The overall silhouette feels balanced, and the forest-green overshirt adds depth to the neutral base.",
-  consider: "The shoulder and sleeve area appears slightly relaxed, creating a more oversized look.",
-  pairWith: ["Black straight-leg trousers", "Minimal white sneakers", "A small structured bag"]
+  visualFit: "فرم متعادل و کمی آزاد",
+  why: "فرم کلی لباس متعادل است و سبز تیره‌ی رویه، به ترکیب رنگ‌های خنثی عمق می‌دهد.",
+  consider: "قسمت شانه و آستین کمی آزاد دیده می‌شود؛ اگر استایل جذب می‌خواهی، مدل دیگری را هم مقایسه کن.",
+  pairWith: ["شلوار راسته مشکی", "کتانی سفید ساده", "کیف کوچک ساختارمند"]
 };
 
 function verdictCaption(analysis: Analysis | null, hasError: boolean) {
-  if (!analysis) return hasError ? "Analysis unavailable" : "Reviewing the generated look";
-  if (analysis.verdict === "BUY") return "Strong match";
-  if (analysis.verdict === "MAYBE") return "Worth a closer look";
-  return "A better option may exist";
+  if (!analysis) return hasError ? "تحلیل در دسترس نیست" : "در حال بررسی استایل";
+  if (analysis.verdict === "BUY") return "انتخاب مناسبی است";
+  if (analysis.verdict === "MAYBE") return "بهتر است بیشتر بررسی کنی";
+  return "احتمالاً انتخاب بهتری وجود دارد";
+}
+
+function verdictLabel(verdict?: Analysis["verdict"]) {
+  if (verdict === "BUY") return "بخر";
+  if (verdict === "MAYBE") return "بررسی کن";
+  if (verdict === "SKIP") return "ردش کن";
+  return "در حال تحلیل";
 }
 
 type Props = {
@@ -48,60 +55,66 @@ export default function ResultView({
     <>
       <section className="resultGrid">
         <div className="resultVisual">
-          <div className="sectionLabel">Your try-on</div>
+          <div className="sectionLabel">پرو مجازی تو</div>
           <div className="resultImage">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={result} alt="Generated virtual try-on" />
+            <img src={result} alt="نتیجه پرو مجازی" />
           </div>
         </div>
 
         <div className="analysis">
-          {isPreparedDemo && <div className="demoFlag">Sample result</div>}
-          <div className="sectionLabel">FitCheck analysis</div>
+          {isPreparedDemo && <div className="demoFlag">نتیجه نمونه</div>}
+          <div className="sectionLabel">تحلیل فیت‌چک</div>
           <div className="verdict">
-            <small>FitCheck verdict</small>
-            <h3>{analysis?.verdict ?? (analysisError ? "READY" : "ANALYZING")}</h3>
+            <small>پیشنهاد فیت‌چک</small>
+            <h3>{analysisError ? "آماده" : verdictLabel(analysis?.verdict)}</h3>
             <p>{verdictCaption(analysis, Boolean(analysisError))}</p>
           </div>
           <div className="metricRow">
             <div className="metric">
-              <span>Style match</span>
+              <span>هماهنگی استایل</span>
               <strong>
-                {analysis ? `${analysis.styleScore.toFixed(1)} / 10` : analysisError ? "Unavailable" : "Analyzing…"}
+                {analysis ? `${analysis.styleScore.toFixed(1)} از ۱۰` : analysisError ? "در دسترس نیست" : "در حال تحلیل…"}
               </strong>
             </div>
             <div className="metric">
-              <span>Visual fit</span>
-              <strong>{analysis?.visualFit ?? (analysisError ? "Unavailable" : "Analyzing…")}</strong>
+              <span>فرم ظاهری</span>
+              <strong>{analysis?.visualFit ?? (analysisError ? "در دسترس نیست" : "در حال تحلیل…")}</strong>
             </div>
           </div>
           <div className="metric">
-            <span>Why it works</span>
-            <strong>{analysis?.why ?? analysisError ?? "FitCheck is reviewing the simulated look."}</strong>
+            <span>چرا مناسب است؟</span>
+            <strong>{analysis?.why ?? analysisError ?? "فیت‌چک در حال بررسی استایل شبیه‌سازی‌شده است."}</strong>
           </div>
           <div className="metric">
-            <span>Consider</span>
-            <strong>{analysis?.consider ?? (analysisError ? "Unavailable" : "Analyzing…")}</strong>
+            <span>به این نکته توجه کن</span>
+            <strong>{analysis?.consider ?? (analysisError ? "در دسترس نیست" : "در حال تحلیل…")}</strong>
           </div>
           <div className="metric">
-            <span>Pair it with</span>
+            <span>با این‌ها ست کن</span>
             {analysis ? (
               <ul className="pairingList">
                 {analysis.pairWith.map((item) => <li key={item}>{item}</li>)}
               </ul>
             ) : (
-              <strong>{analysisError ? "Unavailable" : "Analyzing…"}</strong>
+              <strong>{analysisError ? "در دسترس نیست" : "در حال تحلیل…"}</strong>
             )}
           </div>
+          {isPreparedDemo && (
+            <div className="metricRow">
+              <div className="metric highlightMetric"><span>هماهنگی با کمد</span><strong>۸۲٪ · بالا</strong></div>
+              <div className="metric highlightMetric"><span>ارزش خرید</span><strong>۸ از ۱۰</strong></div>
+            </div>
+          )}
           {tryAnotherHref ? (
-            <Link className="secondary buttonLink" href={tryAnotherHref}>Try another item</Link>
+            <Link className="secondary buttonLink" href={tryAnotherHref}>بررسی یک لباس دیگر</Link>
           ) : (
-            <button className="secondary" onClick={onTryAnother}>Try another item</button>
+            <button className="secondary" onClick={onTryAnother}>بررسی یک لباس دیگر</button>
           )}
         </div>
       </section>
       <p className="notice">
-        FitCheck provides visual styling guidance from images and does not guarantee physical garment fit or sizing.
+        فیت‌چک بر اساس تصاویر، راهنمایی استایل ارائه می‌دهد و اندازه یا تن‌خور واقعی لباس را تضمین نمی‌کند.
       </p>
     </>
   );

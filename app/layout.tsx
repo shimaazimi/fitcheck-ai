@@ -3,12 +3,12 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "FitCheck AI",
-  description: "See it. Understand it. Decide before you buy."
+  description: "دستیار هوشمند کمد، استایل و تصمیم خرید لباس"
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
+    <html lang="fa" dir="rtl">
       <body>{children}</body>
     </html>
   );

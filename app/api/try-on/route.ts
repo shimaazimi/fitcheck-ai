@@ -8,13 +8,13 @@ export async function POST(request: NextRequest) {
   try {
     const { modelImage, garmentImage } = await request.json();
     if (!modelImage || !garmentImage) {
-      return NextResponse.json({ error: "Both images are required." }, { status: 400 });
+      return NextResponse.json({ error: "عکس شخص و لباس هر دو لازم هستند." }, { status: 400 });
     }
 
     const apiKey = process.env.FASHN_API_KEY;
     if (!apiKey) {
       return NextResponse.json(
-        { error: "Missing FASHN_API_KEY. Copy .env.example to .env.local and add your key." },
+        { error: "سرویس پرو مجازی در حال حاضر فعال نیست." },
         { status: 500 }
       );
     }
@@ -43,7 +43,7 @@ export async function POST(request: NextRequest) {
 
     const runData = await runResponse.json();
     if (!runResponse.ok || !runData.id) {
-      return NextResponse.json({ error: runData.error || "Could not start try-on." }, { status: 502 });
+      return NextResponse.json({ error: runData.error || "پرو مجازی شروع نشد؛ دوباره تلاش کنید." }, { status: 502 });
     }
 
     for (let i = 0; i < MAX_POLLS; i += 1) {
@@ -56,14 +56,14 @@ export async function POST(request: NextRequest) {
       }
 
       if (!["starting", "in_queue", "processing"].includes(statusData.status)) {
-        return NextResponse.json({ error: statusData.error || "Try-on failed." }, { status: 502 });
+        return NextResponse.json({ error: statusData.error || "ساخت پرو مجازی انجام نشد." }, { status: 502 });
       }
     }
 
-    return NextResponse.json({ error: "Try-on timed out. Please try again." }, { status: 504 });
+    return NextResponse.json({ error: "زمان ساخت پرو مجازی طولانی شد؛ دوباره تلاش کنید." }, { status: 504 });
   } catch (error) {
     return NextResponse.json(
-      { error: error instanceof Error ? error.message : "Unexpected server error." },
+      { error: error instanceof Error ? error.message : "خطای پیش‌بینی‌نشده در سرور." },
       { status: 500 }
     );
   }

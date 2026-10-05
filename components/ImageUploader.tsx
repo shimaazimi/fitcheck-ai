@@ -29,13 +29,13 @@ export default function ImageUploader({ title, description, preview, onFile, cap
             <img src={preview} alt={`${title} preview`} />
             <div className="previewShade" />
             <button className="replace" type="button" onClick={() => inputRef.current?.click()}>
-              Replace image
+              تغییر عکس
             </button>
           </>
         ) : (
           <div className="uploadCopy">
-            <strong>Drop or choose an image</strong>
-            <span>JPG, PNG or WEBP · clear, well-lit photos work best</span>
+            <strong>عکس را انتخاب کن</strong>
+            <span>JPG، PNG یا WEBP · عکس واضح و پرنور نتیجه بهتری می‌دهد</span>
           </div>
         )}
         <input

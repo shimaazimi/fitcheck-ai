@@ -3,16 +3,16 @@ import Link from "next/link";
 import ResultView, { DEMO_ANALYSIS } from "../../components/ResultView";
 
 export const metadata: Metadata = {
-  title: "Sample Result · FitCheck AI",
-  description: "Explore a complete FitCheck virtual try-on and AI purchase decision sample."
+  title: "نتیجه نمونه · فیت‌چک",
+  description: "نمونه کامل پرو مجازی و تصمیم خرید هوشمند فیت‌چک"
 };
 
 export default function DemoPage() {
   return (
     <main className="shell">
       <nav className="nav resultNav">
-        <Link className="brand brandLink" href="/">FITCHECK</Link>
-        <div className="badge">AI fashion decision engine</div>
+        <Link className="brand brandLink" href="/">فیت‌چک</Link>
+        <div className="badge">دستیار هوشمند کمد و خرید</div>
       </nav>
       <ResultView
         result="/demo/result.png"

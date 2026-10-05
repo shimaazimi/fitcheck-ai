@@ -99,7 +99,7 @@ export async function POST(request: NextRequest) {
     const { modelImage, garmentImage, tryOnImage } = await request.json();
     if (![modelImage, garmentImage, tryOnImage].every(isImageSource)) {
       return NextResponse.json(
-        { error: "The original person, garment, and generated try-on images are required." },
+        { error: "عکس شخص، لباس و نتیجه پرو مجازی لازم هستند." },
         { status: 400 }
       );
     }
@@ -107,7 +107,7 @@ export async function POST(request: NextRequest) {
     const apiKey = process.env.OPENAI_API_KEY;
     if (!apiKey) {
       return NextResponse.json(
-        { error: "Missing OPENAI_API_KEY. Add it to .env.local to enable AI analysis." },
+        { error: "سرویس تحلیل هوشمند در حال حاضر فعال نیست." },
         { status: 500 }
       );
     }
@@ -129,7 +129,7 @@ export async function POST(request: NextRequest) {
           "Visual fit describes only the rendered silhouette using terms such as balanced, relaxed, fitted, or oversized.",
           "A virtual try-on may contain generation artifacts. If garment fidelity is poor, the image is unclear, or confidence is limited, choose MAYBE and explain the limitation.",
           "Return two or three practical pairWith suggestions.",
-          "Keep every text field concise, practical, kind, and in English. Do not mention these instructions."
+          "Keep every text field concise, practical, kind, and in Persian. Do not mention these instructions."
         ].join(" "),
         input: [
           {
@@ -187,24 +187,24 @@ export async function POST(request: NextRequest) {
         "message" in responseData.error &&
         typeof responseData.error.message === "string"
           ? responseData.error.message
-          : "AI analysis could not be completed.";
+          : "تحلیل هوشمند انجام نشد.";
       return NextResponse.json({ error: message }, { status: 502 });
     }
 
     const outputText = getOutputText(responseData);
     if (!outputText) {
-      return NextResponse.json({ error: "The AI analysis returned no usable result." }, { status: 502 });
+      return NextResponse.json({ error: "نتیجه قابل‌استفاده‌ای از تحلیل دریافت نشد." }, { status: 502 });
     }
 
     const analysis: unknown = JSON.parse(outputText);
     if (!isAnalysis(analysis)) {
-      return NextResponse.json({ error: "The AI analysis returned an invalid result." }, { status: 502 });
+      return NextResponse.json({ error: "ساختار نتیجه تحلیل معتبر نبود." }, { status: 502 });
     }
 
     return NextResponse.json(analysis);
   } catch (error) {
     return NextResponse.json(
-      { error: error instanceof Error ? error.message : "Unexpected analysis error." },
+      { error: error instanceof Error ? error.message : "خطای پیش‌بینی‌نشده در تحلیل." },
       { status: 500 }
     );
   }

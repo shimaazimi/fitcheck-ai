@@ -55,7 +55,7 @@ export default function Home() {
       });
 
       const tryOnData = await tryOnResponse.json();
-      if (!tryOnResponse.ok) throw new Error(tryOnData.error || "Try-on failed.");
+      if (!tryOnResponse.ok) throw new Error(tryOnData.error || "ساخت پرو مجازی انجام نشد.");
 
       setResult(tryOnData.output);
 
@@ -69,13 +69,13 @@ export default function Home() {
         if (analysisResponse.ok) {
           setAnalysis(analysisData);
         } else {
-          setAnalysisError(analysisData.error || "The try-on is ready, but AI analysis failed.");
+          setAnalysisError(analysisData.error || "پرو مجازی آماده است، اما تحلیل هوشمند انجام نشد.");
         }
       } catch {
-        setAnalysisError("The try-on is ready, but AI analysis could not be reached.");
+        setAnalysisError("پرو مجازی آماده است، اما ارتباط با تحلیل هوشمند برقرار نشد.");
       }
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Something went wrong.");
+      setError(err instanceof Error ? err.message : "مشکلی پیش آمد؛ دوباره تلاش کنید.");
     } finally {
       setLoading(false);
     }
@@ -91,15 +91,16 @@ export default function Home() {
   return (
     <main className="shell">
       <nav className="nav">
-        <div className="brand">FITCHECK</div>
-        <div className="badge">AI fashion decision engine</div>
+        <div className="brand">فیت‌چک</div>
+        <div className="badge">دستیار هوشمند کمد و خرید</div>
       </nav>
 
       <section className="hero">
-        <div className="eyebrow">FitCheck AI · Try on → Analyze → Decide</div>
-        <h1>See it before you buy it.</h1>
+        <div className="eyebrow">فیت‌چک · امتحان کن ← تحلیل کن ← تصمیم بگیر</div>
+        <h1>قبل از خرید، ببین و مطمئن شو.</h1>
         <p>
-          AI-powered virtual try-on that helps you understand a look and decide what is actually worth buying.
+          لباس‌هایت را به کمد هوشمند اضافه کن، برای هر موقعیت پیشنهاد بگیر و قبل از خرید لباس جدید ببین
+          چقدر با استایل و کمد تو هماهنگ است.
         </p>
       </section>
 
@@ -108,15 +109,15 @@ export default function Home() {
           {LIVE_DEMO_ENABLED ? (
             <section className="workspace">
               <ImageUploader
-                title="1. Your photo"
-                description="Use a clear front-facing or full-body photo with good lighting."
+                title="۱. عکس خودت"
+                description="یک عکس واضح تمام‌قد یا روبه‌رو با نور مناسب انتخاب کن."
                 preview={personPreview}
                 onFile={choosePerson}
                 capture="user"
               />
               <ImageUploader
-                title="2. Clothing item"
-                description="Flat-lay, mannequin, or on-model garment photos can work."
+                title="۲. لباس موردنظر"
+                description="می‌توانی عکس لباس، مانکن یا محصول فروشگاه را انتخاب کنی."
                 preview={garmentPreview}
                 onFile={chooseGarment}
                 capture="environment"
@@ -125,15 +126,14 @@ export default function Home() {
           ) : (
             <section className="demoCallout">
               <div>
-                <span className="demoLabel">INTERACTIVE PRODUCT WALKTHROUGH</span>
-                <h2>See the complete decision experience.</h2>
+                <span className="demoLabel">نسخه نمایشی محصول</span>
+                <h2>یک تصمیم خرید کامل را ببین.</h2>
                 <p>
-                  Explore a prepared try-on, FitCheck verdict, style match, visual fit, and practical styling
-                  suggestions—all in one result.
+                  نتیجه‌ی پرو مجازی، میزان هماهنگی با استایل و کمد، ارزش خرید و پیشنهادهای کاربردی را یکجا بررسی کن.
                 </p>
               </div>
               <Link className="primary buttonLink" href="/demo">
-                View sample result
+                مشاهده نتیجه نمونه
               </Link>
             </section>
           )}
@@ -141,18 +141,29 @@ export default function Home() {
           {LIVE_DEMO_ENABLED && (
             <div className="actions">
               <button className="primary" disabled={!person || !garment || loading} onClick={generate}>
-                {loading ? "Creating try-on…" : "Try it on"}
+                {loading ? "در حال ساخت پرو مجازی…" : "پرو مجازی"}
               </button>
               <Link className="secondary buttonLink" href="/demo">
-                View sample result
+                مشاهده نتیجه نمونه
               </Link>
-              <span className="status">Choose two photos or explore the complete sample result.</span>
+              <span className="status">دو عکس انتخاب کن یا نتیجه نمونه را ببین.</span>
               {error && <span className="error">{error}</span>}
             </div>
           )}
         </>
       ) : (
         <ResultView result={result} analysis={analysis} analysisError={analysisError} onTryAnother={reset} />
+      )}
+
+      {!result && (
+        <section className="visionSection">
+          <div className="sectionLabel">چشم‌انداز فیت‌چک</div>
+          <div className="visionGrid">
+            <article><span>۰۱</span><h2>کمد هوشمند</h2><p>ثبت لباس‌های فعلی و شناخت رنگ‌ها، مدل‌ها و آیتم‌های تکراری.</p></article>
+            <article><span>۰۲</span><h2>استایل برای موقعیت</h2><p>پیشنهاد پوشش از لباس‌های خودت برای مهمانی، سفر، دانشگاه یا محل کار.</p></article>
+            <article><span>۰۳</span><h2>تصمیم خرید</h2><p>بررسی هماهنگی لباس جدید با کمد، کاربرد واقعی و میزان ارزش خرید.</p></article>
+          </div>
+        </section>
       )}
     </main>
   );
