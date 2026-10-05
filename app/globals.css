@@ -185,6 +185,80 @@ button { cursor: pointer; }
 .demoUploadFooter .primary:disabled { transform:none; box-shadow:none; }
 .sampleResultAnchor { scroll-margin-top:24px; }
 
+.buyCheckShell { background:radial-gradient(circle at 88% 16%,rgba(213,172,177,.18),transparent 25%); }
+.buyCheckHero { max-width:1180px; margin:0 auto 46px; display:flex; justify-content:space-between; align-items:flex-end; gap:36px; }
+.buyCheckHero h1 { margin:14px 0 18px; font-size:clamp(44px,6vw,76px); line-height:1.12; }
+.buyCheckHero h1 em { color:#9e5961; font-style:normal; }
+.buyCheckHero p { max-width:680px; margin:0; color:var(--muted); font-size:17px; line-height:1.9; }
+.buyCheckStatus { min-width:230px; display:grid; gap:5px; padding:18px 20px; border:1px solid #d7c7c2; background:rgba(255,255,255,.7); border-radius:20px; box-shadow:0 12px 35px rgba(55,37,39,.06); }
+.buyCheckStatus i { width:9px; height:9px; margin-bottom:5px; border-radius:50%; background:#cf727a; box-shadow:0 0 0 5px rgba(207,114,122,.13); }
+.buyCheckStatus strong { font-size:13px; }
+.buyCheckStatus span { color:var(--muted); font-size:10px; }
+.buyCheckLayout { max-width:1180px; margin:0 auto; display:grid; grid-template-columns:minmax(0,1.2fr) minmax(300px,.8fr); gap:22px; align-items:start; }
+.purchaseForm { padding:28px; border:1px solid var(--line); border-radius:28px; background:rgba(255,255,255,.74); box-shadow:0 18px 55px rgba(55,37,39,.07); }
+.stepNumber { display:grid; place-items:center; width:44px; height:44px; border-radius:50%; background:#2b2325; color:#fff; }
+.purchasePhoto { min-height:270px; display:grid; place-items:center; position:relative; overflow:hidden; border:1px dashed #c4aaa6; border-radius:22px; background:linear-gradient(145deg,#fff5f4,#edf3ea); cursor:pointer; }
+.purchasePhoto > div { display:grid; justify-items:center; gap:8px; padding:24px; text-align:center; }
+.purchasePhoto > div b { display:grid; place-items:center; width:48px; height:48px; border-radius:50%; background:#2b2325; color:#fff; font-size:24px; }
+.purchasePhoto > div strong { font-size:18px; }
+.purchasePhoto > div small { color:var(--muted); }
+.purchasePhoto input { position:absolute; inset:0; opacity:0; cursor:pointer; }
+.purchasePhoto.hasImage img { width:100%; height:330px; object-fit:cover; }
+.purchasePhoto.hasImage > span { position:absolute; right:14px; bottom:14px; padding:9px 12px; border-radius:999px; background:rgba(255,255,255,.92); font-size:11px; font-weight:800; }
+.purchaseFields { margin-top:20px; }
+.needPicker { margin:18px 0 0; padding:18px; border:1px solid var(--line); border-radius:18px; }
+.needPicker legend { padding:0 8px; font-size:12px; font-weight:800; }
+.needPicker > div { display:grid; grid-template-columns:repeat(5,1fr); gap:8px; }
+.needPicker label { position:relative; }
+.needPicker input { position:absolute; opacity:0; }
+.needPicker label span { display:grid; place-items:center; height:42px; border:1px solid var(--line); border-radius:12px; background:#fff; font-weight:800; cursor:pointer; }
+.needPicker input:checked + span { border-color:#9e5961; background:#9e5961; color:#fff; box-shadow:0 8px 20px rgba(158,89,97,.2); }
+.needPicker small { display:flex; justify-content:space-between; gap:10px; margin-top:10px; color:var(--muted); font-size:10px; }
+.wardrobeSignal { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-top:18px; }
+.wardrobeSignal > div { display:grid; gap:5px; padding:13px; border-radius:14px; background:#f2eeea; }
+.wardrobeSignal span { color:var(--muted); font-size:10px; }
+.wardrobeSignal strong { font-size:13px; }
+.emptyWardrobeHint { margin:12px 0 0; padding:12px; border-radius:12px; background:#fff4df; color:#705d3f; font-size:11px; line-height:1.7; }
+.emptyWardrobeHint a { color:inherit; font-weight:900; }
+.evaluateButton { width:100%; margin-top:18px; }
+.purchaseGuide { position:sticky; top:20px; padding:34px; overflow:hidden; border-radius:28px; background:linear-gradient(145deg,#282124,#3b3032 68%,#344638 130%); color:#fff; box-shadow:0 22px 55px rgba(45,32,35,.18); }
+.purchaseGuide .sectionLabel { color:#dcb2b6; }
+.purchaseGuide h2 { margin:12px 0 28px; font-size:32px; line-height:1.3; }
+.purchaseGuide ol { display:grid; gap:0; margin:0; padding:0; list-style:none; counter-reset:guide; }
+.purchaseGuide li { position:relative; display:grid; gap:4px; padding:17px 44px 17px 0; border-top:1px solid rgba(255,255,255,.12); counter-increment:guide; }
+.purchaseGuide li::before { content:"۰" counter(guide); position:absolute; right:0; top:18px; color:#dca2a8; font-size:11px; font-weight:900; }
+.purchaseGuide li b { font-size:14px; }
+.purchaseGuide li span { color:#cfc4c2; font-size:11px; line-height:1.7; }
+.guideQuote { margin-top:28px; padding:18px; border:1px solid rgba(255,255,255,.12); border-radius:18px; background:rgba(255,255,255,.06); color:#e4d9d6; font-size:12px; line-height:1.9; }
+.purchaseResult { max-width:1180px; scroll-margin-top:24px; margin:70px auto 0; display:grid; grid-template-columns:340px 1fr; gap:22px; align-items:start; }
+.purchaseVerdict { position:sticky; top:20px; min-height:420px; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:30px; text-align:center; color:#fff; border-radius:30px; box-shadow:0 24px 60px rgba(55,37,39,.18); }
+.purchaseVerdict.good { background:linear-gradient(145deg,#26372d,#49624e); }
+.purchaseVerdict.medium { background:linear-gradient(145deg,#4a3923,#84663b); }
+.purchaseVerdict.low { background:linear-gradient(145deg,#462d30,#77464c); }
+.purchaseVerdict > span { opacity:.7; font-size:11px; }
+.scoreRing { width:135px; height:135px; display:grid; place-content:center; margin:24px 0 18px; border:1px solid rgba(255,255,255,.35); border-radius:50%; box-shadow:inset 0 0 0 8px rgba(255,255,255,.08); }
+.scoreRing strong { font-size:44px; line-height:1; }
+.scoreRing small { margin-top:5px; opacity:.7; }
+.purchaseVerdict h2 { margin:0 0 12px; font-size:30px; }
+.purchaseVerdict p { margin:0; color:rgba(255,255,255,.72); font-size:11px; line-height:1.8; }
+.purchaseAnalysis { display:grid; gap:16px; }
+.resultStats { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
+.resultStats > div { min-height:100px; display:grid; align-content:center; gap:7px; padding:18px; border:1px solid var(--line); border-radius:20px; background:rgba(255,255,255,.72); }
+.resultStats span { color:var(--muted); font-size:10px; }
+.resultStats strong { font-size:17px; }
+.reasonColumns { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.reasonColumns article { padding:24px; border:1px solid var(--line); border-radius:22px; background:rgba(255,255,255,.72); }
+.reasonColumns article > span { color:#9e5961; font-size:11px; font-weight:900; }
+.reasonColumns ul { display:grid; gap:10px; margin:16px 0 0; padding-right:18px; }
+.reasonColumns li { font-size:12px; line-height:1.8; }
+.matchStrip { padding:22px; border:1px solid #bdcdb9; border-radius:24px; background:#eff5ed; }
+.matchStrip > div:first-child { display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; }
+.matchStrip h3 { margin:0; }
+.matchStrip > div:last-child { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; }
+.matchStrip figure { margin:0; overflow:hidden; border-radius:14px; background:white; }
+.matchStrip img { width:100%; height:115px; display:block; object-fit:cover; }
+.matchStrip figcaption { padding:9px; overflow:hidden; text-align:center; text-overflow:ellipsis; white-space:nowrap; font-size:10px; font-weight:800; }
+
 @media (max-width: 800px) {
   .shell { padding:18px; }
   .nav { margin-bottom:38px; }
@@ -206,6 +280,9 @@ button { cursor: pointer; }
   .demoUploadGrid { grid-template-columns:1fr; }
   .uploadFlowArrow { margin:-7px auto; z-index:2; }
   .demoUploadFooter .primary { width:100%; }
+  .buyCheckHero { align-items:flex-start; flex-direction:column; }
+  .buyCheckLayout, .purchaseResult { grid-template-columns:1fr; }
+  .purchaseGuide, .purchaseVerdict { position:relative; top:0; }
 }
 
 @media (max-width: 520px) {
@@ -221,4 +298,9 @@ button { cursor: pointer; }
   .collectionTop { align-items:flex-start; flex-direction:column; }
   .filters { width:100%; }
   .filters select { flex:1; min-width:0; }
+  .buyCheckHero h1 { font-size:42px; }
+  .buyCheckStatus { width:100%; }
+  .purchaseForm, .purchaseGuide { padding:20px; }
+  .wardrobeSignal, .resultStats, .reasonColumns { grid-template-columns:1fr; }
+  .matchStrip > div:last-child { grid-template-columns:repeat(2,1fr); }
 }
