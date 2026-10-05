@@ -109,6 +109,12 @@ export default function Home() {
           <div className="heroChips">
             <span>کمد هوشمند</span><span>پیشنهاد استایل</span><span>خرید آگاهانه</span>
           </div>
+          <div className="heroActions">
+            <Link className="primary buttonLink" href="/demo">
+              عکس‌هایت را امتحان کن
+            </Link>
+            <span>دموی تعاملی · فعلاً بدون اتصال به AI</span>
+          </div>
         </div>
         <div className="heroVisual" aria-label="نمونه روند پرو مجازی">
           <div className="visualGlow" />
@@ -160,7 +166,7 @@ export default function Home() {
                 </p>
               </div>
               <Link className="primary buttonLink" href="/demo">
-                مشاهده نتیجه نمونه
+                آپلود عکس و مشاهده دمو
               </Link>
             </section>
           )}
