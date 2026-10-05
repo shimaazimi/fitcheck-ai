@@ -96,12 +96,36 @@ export default function Home() {
       </nav>
 
       <section className="hero">
-        <div className="eyebrow">فیت‌چک · امتحان کن ← تحلیل کن ← تصمیم بگیر</div>
-        <h1>قبل از خرید، ببین و مطمئن شو.</h1>
-        <p>
-          لباس‌هایت را به کمد هوشمند اضافه کن، برای هر موقعیت پیشنهاد بگیر و قبل از خرید لباس جدید ببین
-          چقدر با استایل و کمد تو هماهنگ است.
-        </p>
+        <div className="heroCopy">
+          <div className="eyebrow"><span /> فیت‌چک · امتحان کن ← تحلیل کن ← تصمیم بگیر</div>
+          <h1>قبل از خرید،<em> ببین</em> و مطمئن شو.</h1>
+          <p>
+            لباس‌هایت را به کمد هوشمند اضافه کن، برای هر موقعیت پیشنهاد بگیر و قبل از خرید لباس جدید ببین
+            چقدر با استایل و کمد تو هماهنگ است.
+          </p>
+          <div className="heroChips">
+            <span>کمد هوشمند</span><span>پیشنهاد استایل</span><span>خرید آگاهانه</span>
+          </div>
+        </div>
+        <div className="heroVisual" aria-label="نمونه روند پرو مجازی">
+          <div className="visualGlow" />
+          <figure className="visualCard personCard">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/demo/person.png" alt="عکس اولیه کاربر" />
+            <figcaption>عکس تو</figcaption>
+          </figure>
+          <figure className="visualCard garmentCard">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/demo/garment.png" alt="لباس انتخاب‌شده" />
+            <figcaption>انتخاب لباس</figcaption>
+          </figure>
+          <figure className="visualCard resultCard">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/demo/result.png" alt="نتیجه پرو مجازی" />
+            <figcaption><b>۸٫۶</b> هماهنگی استایل</figcaption>
+          </figure>
+          <div className="verdictBubble"><small>پیشنهاد فیت‌چک</small><strong>بخر ✓</strong></div>
+        </div>
       </section>
 
       {!result ? (
@@ -159,9 +183,9 @@ export default function Home() {
         <section className="visionSection">
           <div className="sectionLabel">چشم‌انداز فیت‌چک</div>
           <div className="visionGrid">
-            <article><span>۰۱</span><h2>کمد هوشمند</h2><p>ثبت لباس‌های فعلی و شناخت رنگ‌ها، مدل‌ها و آیتم‌های تکراری.</p></article>
-            <article><span>۰۲</span><h2>استایل برای موقعیت</h2><p>پیشنهاد پوشش از لباس‌های خودت برای مهمانی، سفر، دانشگاه یا محل کار.</p></article>
-            <article><span>۰۳</span><h2>تصمیم خرید</h2><p>بررسی هماهنگی لباس جدید با کمد، کاربرد واقعی و میزان ارزش خرید.</p></article>
+            <article><span>✦ ۰۱</span><h2>کمد هوشمند</h2><p>ثبت لباس‌های فعلی و شناخت رنگ‌ها، مدل‌ها و آیتم‌های تکراری.</p></article>
+            <article><span>✦ ۰۲</span><h2>استایل برای موقعیت</h2><p>پیشنهاد پوشش از لباس‌های خودت برای مهمانی، سفر، دانشگاه یا محل کار.</p></article>
+            <article><span>✦ ۰۳</span><h2>تصمیم خرید</h2><p>بررسی هماهنگی لباس جدید با کمد، کاربرد واقعی و میزان ارزش خرید.</p></article>
           </div>
         </section>
       )}
