@@ -17,7 +17,7 @@ body {
     radial-gradient(circle at 92% 24%, rgba(184,205,179,.34) 0, transparent 27%),
     var(--bg);
   color: var(--ink);
-  font-family: Tahoma, "Segoe UI", ui-sans-serif, system-ui, sans-serif;
+  font-family: Vazirmatn, Tahoma, "Segoe UI", ui-sans-serif, system-ui, sans-serif;
 }
 button, input { font: inherit; }
 button { cursor: pointer; }
