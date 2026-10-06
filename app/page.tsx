@@ -94,6 +94,7 @@ export default function Home() {
         <div className="brand">فیت‌چک</div>
         <div className="navActions">
           <Link className="navLink" href="/wardrobe">کمد من</Link>
+          <Link className="navLink" href="/occasion">پیشنهاد استایل</Link>
           <Link className="navLink" href="/buy-check">بررسی خرید</Link>
           <div className="badge">دستیار هوشمند کمد و خرید</div>
         </div>
@@ -111,10 +112,10 @@ export default function Home() {
             <span>کمد هوشمند</span><span>پیشنهاد استایل</span><span>خرید آگاهانه</span>
           </div>
           <div className="heroActions">
-            <Link className="primary buttonLink" href="/buy-check">
-              خرید جدید را بررسی کن
+            <Link className="primary buttonLink" href="/occasion">
+              برای امروز چی بپوشم؟
             </Link>
-            <Link className="secondary buttonLink" href="/demo">دموی پرو مجازی</Link>
+            <Link className="secondary buttonLink" href="/buy-check">بررسی خرید جدید</Link>
           </div>
         </div>
         <div className="heroVisual" aria-label="نمونه روند پرو مجازی">

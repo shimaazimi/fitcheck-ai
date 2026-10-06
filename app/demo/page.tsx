@@ -14,6 +14,7 @@ export default function DemoPage() {
       <nav className="nav resultNav">
         <Link className="brand brandLink" href="/">فیت‌چک</Link>
         <div className="navActions">
+          <Link className="navLink" href="/occasion">پیشنهاد استایل</Link>
           <Link className="navLink" href="/buy-check">بررسی خرید</Link>
           <Link className="navLink" href="/wardrobe">کمد من</Link>
           <div className="badge">دستیار هوشمند کمد و خرید</div>

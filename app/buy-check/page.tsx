@@ -150,6 +150,7 @@ export default function BuyCheckPage() {
         <Link className="brand brandLink" href="/">فیت‌چک</Link>
         <div className="navActions">
           <Link className="navLink" href="/wardrobe">کمد من</Link>
+          <Link className="navLink" href="/occasion">پیشنهاد استایل</Link>
           <Link className="navLink active" href="/buy-check">بررسی خرید</Link>
         </div>
       </nav>

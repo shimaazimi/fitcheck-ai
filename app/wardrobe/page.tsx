@@ -161,6 +161,7 @@ export default function WardrobePage() {
         <Link className="brand brandLink" href="/">فیت‌چک</Link>
         <div className="navActions">
           <span className="badge">نسخه آزمایشی کمد</span>
+          <Link className="navLink" href="/occasion">پیشنهاد استایل</Link>
           <Link className="navLink" href="/buy-check">بررسی خرید</Link>
           <Link className="navLink active" href="/wardrobe">کمد من</Link>
         </div>
