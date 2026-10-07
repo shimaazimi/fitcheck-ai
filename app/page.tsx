@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import ImageUploader from "../components/ImageUploader";
 import ResultView, { type Analysis } from "../components/ResultView";
+import SiteNav from "../components/SiteNav";
 
 const LIVE_DEMO_ENABLED = process.env.NEXT_PUBLIC_LIVE_DEMO_ENABLED === "true";
 
@@ -90,15 +91,7 @@ export default function Home() {
 
   return (
     <main className="shell">
-      <nav className="nav">
-        <div className="brand">فیت‌چک</div>
-        <div className="navActions">
-          <Link className="navLink" href="/wardrobe">کمد من</Link>
-          <Link className="navLink" href="/occasion">پیشنهاد استایل</Link>
-          <Link className="navLink" href="/buy-check">بررسی خرید</Link>
-          <div className="badge">دستیار هوشمند کمد و خرید</div>
-        </div>
-      </nav>
+      <SiteNav active="home" />
 
       <section className="hero">
         <div className="heroCopy">
@@ -112,11 +105,12 @@ export default function Home() {
             <span>کمد هوشمند</span><span>پیشنهاد استایل</span><span>خرید آگاهانه</span>
           </div>
           <div className="heroActions">
-            <Link className="primary buttonLink" href="/occasion">
-              برای امروز چی بپوشم؟
+            <Link className="primary buttonLink" href="/wardrobe">
+              شروع از کمد من <span aria-hidden="true">←</span>
             </Link>
-            <Link className="secondary buttonLink" href="/buy-check">بررسی خرید جدید</Link>
+            <Link className="secondary buttonLink" href="/demo">دیدن دموی کامل</Link>
           </div>
+          <div className="heroTrust"><i /> بدون ثبت‌نام · اطلاعات فعلاً فقط در مرورگر تو</div>
         </div>
         <div className="heroVisual" aria-label="نمونه روند پرو مجازی">
           <div className="visualGlow" />
@@ -192,11 +186,14 @@ export default function Home() {
 
       {!result && (
         <section className="visionSection">
-          <div className="sectionLabel">چشم‌انداز فیت‌چک</div>
+          <div className="visionHeading">
+            <div><div className="sectionLabel">مسیر ساده و مشخص</div><h2>سه قدم تا انتخاب مطمئن‌تر</h2></div>
+            <p>از شناخت لباس‌هایی که داری شروع کن؛ بعد برای پوشیدن و خرید تصمیم بگیر.</p>
+          </div>
           <div className="visionGrid">
-            <article><span>✦ ۰۱</span><h2>کمد هوشمند</h2><p>ثبت لباس‌های فعلی و شناخت رنگ‌ها، مدل‌ها و آیتم‌های تکراری.</p></article>
-            <article><span>✦ ۰۲</span><h2>استایل برای موقعیت</h2><p>پیشنهاد پوشش از لباس‌های خودت برای مهمانی، سفر، دانشگاه یا محل کار.</p></article>
-            <article><span>✦ ۰۳</span><h2>تصمیم خرید</h2><p>بررسی هماهنگی لباس جدید با کمد، کاربرد واقعی و میزان ارزش خرید.</p></article>
+            <Link className="journeyCard" href="/wardrobe"><span>۰۱</span><b>نقطه شروع</b><h3>کمد هوشمند</h3><p>لباس‌های فعلی‌ات را ثبت کن تا پیشنهادها واقعاً شخصی شوند.</p><i>ساخت کمد ←</i></Link>
+            <Link className="journeyCard" href="/occasion"><span>۰۲</span><b>انتخاب روزانه</b><h3>پیشنهاد برای موقعیت</h3><p>برای دانشگاه، مهمانی، سفر یا محل کار از کمدت ست بگیر.</p><i>گرفتن پیشنهاد ←</i></Link>
+            <Link className="journeyCard" href="/buy-check"><span>۰۳</span><b>قبل از پرداخت</b><h3>بررسی خرید جدید</h3><p>هماهنگی، تکراری‌بودن و ارزش واقعی لباس جدید را بسنج.</p><i>بررسی خرید ←</i></Link>
           </div>
         </section>
       )}

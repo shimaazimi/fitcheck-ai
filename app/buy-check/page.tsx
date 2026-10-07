@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 import { FormEvent, useEffect, useMemo, useState } from "react";
+import FlowStepper from "../../components/FlowStepper";
+import SiteNav from "../../components/SiteNav";
 
 type WardrobeItem = {
   id: string;
@@ -146,14 +148,8 @@ export default function BuyCheckPage() {
 
   return (
     <main className="shell buyCheckShell">
-      <nav className="nav">
-        <Link className="brand brandLink" href="/">فیت‌چک</Link>
-        <div className="navActions">
-          <Link className="navLink" href="/wardrobe">کمد من</Link>
-          <Link className="navLink" href="/occasion">پیشنهاد استایل</Link>
-          <Link className="navLink active" href="/buy-check">بررسی خرید</Link>
-        </div>
-      </nav>
+      <SiteNav active="buy-check" />
+      <FlowStepper active="buy-check" />
 
       <section className="buyCheckHero">
         <div>

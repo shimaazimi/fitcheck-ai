@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
+import FlowStepper from "../../components/FlowStepper";
+import SiteNav from "../../components/SiteNav";
 
 type WardrobeItem = {
   id: string;
@@ -58,6 +60,7 @@ export default function WardrobePage() {
   const [categoryFilter, setCategoryFilter] = useState("همه");
   const [occasionFilter, setOccasionFilter] = useState("همه");
   const [error, setError] = useState("");
+  const [feedback, setFeedback] = useState("");
   const fileRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
@@ -95,6 +98,7 @@ export default function WardrobePage() {
       return;
     }
     setError("");
+    setFeedback("");
     try {
       setImage(await resizeImage(file));
     } catch (imageError) {
@@ -112,6 +116,7 @@ export default function WardrobePage() {
     setNotes("");
     setImage("");
     setError("");
+    setFeedback("");
     if (fileRef.current) fileRef.current.value = "";
   }
 
@@ -121,6 +126,7 @@ export default function WardrobePage() {
       setError("ابتدا یک عکس از لباس انتخاب کن.");
       return;
     }
+    const wasEditing = Boolean(editingId);
     const item: WardrobeItem = {
       id: editingId ?? crypto.randomUUID(),
       name: name.trim() || category,
@@ -134,6 +140,8 @@ export default function WardrobePage() {
     };
     setItems((current) => editingId ? current.map((entry) => entry.id === editingId ? item : entry) : [item, ...current]);
     resetForm();
+    setFeedback(wasEditing ? `تغییرات «${item.name}» ذخیره شد.` : `«${item.name}» به کمدت اضافه شد.`);
+    requestAnimationFrame(() => document.getElementById("wardrobe-collection")?.scrollIntoView({ behavior: "smooth", block: "start" }));
   }
 
   function editItem(item: WardrobeItem) {
@@ -146,6 +154,7 @@ export default function WardrobePage() {
     setNotes(item.notes);
     setImage(item.image);
     setError("");
+    setFeedback("");
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
@@ -157,15 +166,8 @@ export default function WardrobePage() {
 
   return (
     <main className="shell wardrobeShell">
-      <nav className="nav">
-        <Link className="brand brandLink" href="/">فیت‌چک</Link>
-        <div className="navActions">
-          <span className="badge">نسخه آزمایشی کمد</span>
-          <Link className="navLink" href="/occasion">پیشنهاد استایل</Link>
-          <Link className="navLink" href="/buy-check">بررسی خرید</Link>
-          <Link className="navLink active" href="/wardrobe">کمد من</Link>
-        </div>
-      </nav>
+      <SiteNav active="wardrobe" />
+      <FlowStepper active="wardrobe" />
 
       <section className="wardrobeHero">
         <div>
@@ -197,11 +199,12 @@ export default function WardrobePage() {
             <label><span>یادداشت اختیاری</span><input value={notes} onChange={(event) => setNotes(event.target.value)} placeholder="مثلاً کمی آزاد است" /></label>
           </div>
           {error && <p className="formError">{error}</p>}
+          {feedback && <p className="formSuccess" role="status">✓ {feedback}</p>}
           <button className="primary saveWardrobe" type="submit">{editingId ? "ذخیره تغییرات" : "اضافه‌کردن به کمد"}</button>
           <p className="localNote">اطلاعات فعلاً فقط در همین مرورگر ذخیره می‌شود و جایی ارسال نمی‌شود.</p>
         </form>
 
-        <section className="wardrobeCollection">
+        <section className="wardrobeCollection" id="wardrobe-collection">
           <div className="collectionTop">
             <div><span className="sectionLabel">مجموعه شخصی</span><h2>لباس‌های من</h2></div>
             <div className="filters">
