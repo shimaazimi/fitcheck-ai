@@ -1,10 +1,16 @@
 "use client";
 
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import { useState } from "react";
 import ImageUploader from "../components/ImageUploader";
 import ResultView, { type Analysis } from "../components/ResultView";
 import SiteNav from "../components/SiteNav";
+
+const ThreeGarmentShowcase = dynamic(() => import("../components/ThreeGarmentShowcase"), {
+  ssr: false,
+  loading: () => <div className="threeLoading">در حال آماده‌سازی استودیوی سه‌بعدی…</div>
+});
 
 const LIVE_DEMO_ENABLED = process.env.NEXT_PUBLIC_LIVE_DEMO_ENABLED === "true";
 
@@ -15,6 +21,17 @@ function toDataUri(file: File): Promise<string> {
     reader.onerror = reject;
     reader.readAsDataURL(file);
   });
+}
+
+async function waitForTryOn(taskId: string) {
+  for (let attempt = 0; attempt < 35; attempt += 1) {
+    await new Promise((resolve) => setTimeout(resolve, 4000));
+    const response = await fetch(`/api/try-on?taskId=${encodeURIComponent(taskId)}`, { cache: "no-store" });
+    const payload = await response.json();
+    if (response.ok && response.status !== 202 && payload.output) return payload.output as string;
+    if (!response.ok) throw new Error(payload.error || "ساخت پرو مجازی انجام نشد.");
+  }
+  throw new Error("ساخت تصویر بیشتر از حد انتظار طول کشید؛ کمی بعد دوباره تلاش کنید.");
 }
 
 export default function Home() {
@@ -58,13 +75,18 @@ export default function Home() {
       const tryOnData = await tryOnResponse.json();
       if (!tryOnResponse.ok) throw new Error(tryOnData.error || "ساخت پرو مجازی انجام نشد.");
 
-      setResult(tryOnData.output);
+      const tryOnOutput = tryOnData.pending && tryOnData.taskId
+        ? await waitForTryOn(tryOnData.taskId)
+        : tryOnData.output;
+      if (!tryOnOutput) throw new Error("تصویر خروجی از سرویس پرو مجازی دریافت نشد.");
+
+      setResult(tryOnOutput);
 
       try {
         const analysisResponse = await fetch("/api/analyze", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ modelImage, garmentImage, tryOnImage: tryOnData.output })
+          body: JSON.stringify({ modelImage, garmentImage, tryOnImage: tryOnOutput })
         });
         const analysisData = await analysisResponse.json();
         if (analysisResponse.ok) {
@@ -132,6 +154,8 @@ export default function Home() {
           <div className="verdictBubble"><small>پیشنهاد فیت‌چک</small><strong>بخر ✓</strong></div>
         </div>
       </section>
+
+      {!result && <ThreeGarmentShowcase />}
 
       {!result ? (
         <>

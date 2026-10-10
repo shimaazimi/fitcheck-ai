@@ -75,6 +75,24 @@ button { cursor: pointer; }
 .verdictBubble small { color:#d9ceca; }
 .verdictBubble strong { font-size:22px; color:#cfdfca; }
 
+.threeShowcase { max-width:1180px; min-height:500px; margin:0 auto 54px; display:grid; grid-template-columns:minmax(0,.8fr) minmax(440px,1.2fr); overflow:hidden; border:1px solid rgba(221,211,206,.8); border-radius:34px; background:linear-gradient(135deg,rgba(255,255,255,.8),rgba(243,235,231,.72)); box-shadow:0 22px 65px rgba(55,37,39,.08); }
+.threeCopy { display:flex; flex-direction:column; justify-content:center; align-items:flex-start; padding:52px; position:relative; z-index:2; }
+.threeCopy h2 { margin:12px 0 18px; font-size:clamp(32px,4vw,52px); line-height:1.2; }
+.threeCopy p { margin:0; color:var(--muted); font-size:13px; line-height:2; }
+.colorPicker { display:flex; flex-wrap:wrap; gap:8px; margin-top:26px; }
+.colorPicker button { display:flex; align-items:center; gap:7px; border:1px solid var(--line); border-radius:999px; padding:8px 10px; background:rgba(255,255,255,.72); color:var(--muted); font-size:10px; font-weight:800; transition:transform .18s ease,border-color .18s ease,background .18s ease; }
+.colorPicker button:hover { transform:translateY(-2px); }
+.colorPicker button.selected { border-color:#9e5961; background:#fff; color:var(--ink); box-shadow:0 8px 20px rgba(91,63,67,.1); }
+.colorPicker i { width:19px; height:19px; border:3px solid white; border-radius:50%; box-shadow:0 0 0 1px rgba(32,27,27,.15); }
+.threeControl { margin-top:14px; border:0; border-bottom:1px solid #9e5961; padding:4px 0; background:transparent; color:#8e5057; font-size:10px; font-weight:900; }
+.threeCanvasWrap { min-height:500px; position:relative; overflow:hidden; background:radial-gradient(circle at 50% 42%,rgba(255,255,255,.96),rgba(221,201,198,.58) 46%,rgba(177,195,172,.45) 100%); direction:ltr; }
+.threeCanvasWrap::before { content:""; position:absolute; inset:9%; border:1px solid rgba(255,255,255,.55); border-radius:50%; }
+.threeCanvasWrap canvas { position:relative; z-index:1; cursor:grab; }
+.threeBadge { position:absolute; z-index:2; top:18px; left:18px; display:flex; align-items:center; gap:7px; padding:8px 11px; border:1px solid rgba(255,255,255,.75); border-radius:999px; background:rgba(255,255,255,.66); backdrop-filter:blur(12px); color:#4f4744; font-size:9px; font-weight:900; direction:rtl; }
+.threeBadge i { width:7px; height:7px; border-radius:50%; background:#668066; box-shadow:0 0 0 4px rgba(102,128,102,.14); }
+.threeHint { position:absolute; z-index:2; right:18px; bottom:18px; padding:8px 11px; border-radius:999px; background:rgba(41,34,37,.78); color:#fff; backdrop-filter:blur(10px); font-size:9px; direction:rtl; }
+.threeLoading { max-width:1180px; min-height:220px; display:grid; place-items:center; margin:0 auto 54px; border:1px solid var(--line); border-radius:34px; background:rgba(255,255,255,.62); color:var(--muted); font-size:12px; }
+
 .workspace { max-width: 1180px; margin: 54px auto 0; display:grid; grid-template-columns: 1fr 1fr; gap: 22px; }
 .card { background: var(--card); border:1px solid var(--line); border-radius: 28px; padding: 22px; backdrop-filter: blur(14px); }
 .card h2 { margin:0 0 8px; font-size: 18px; }
@@ -359,6 +377,9 @@ button { cursor: pointer; }
   .hero { min-height:auto; grid-template-columns:1fr; gap:28px; margin-bottom:38px; }
   .hero h1 { font-size:clamp(42px,14vw,64px); }
   .heroVisual { height:420px; transform:scale(.9); transform-origin:center top; margin-bottom:-35px; }
+  .threeShowcase { grid-template-columns:1fr; }
+  .threeCopy { padding:34px; }
+  .threeCanvasWrap { min-height:410px; }
   .workspace, .resultGrid, .visionGrid { grid-template-columns: 1fr; }
   .metricRow { grid-template-columns:1fr; }
   .uploader { min-height:300px; }
@@ -404,6 +425,9 @@ button { cursor: pointer; }
   .heroActions { align-items:stretch; flex-direction:column; }
   .heroActions .buttonLink { width:100%; }
   .heroVisual { height:350px; transform:scale(.78); transform-origin:right top; width:125%; margin-bottom:-70px; }
+  .threeShowcase { border-radius:25px; }
+  .threeCopy { padding:26px 22px; }
+  .threeCanvasWrap { min-height:360px; }
   .demoCallout { border-radius:24px; }
   .wardrobeHero { align-items:flex-start; flex-direction:column; }
   .wardrobeCount { min-width:120px; }

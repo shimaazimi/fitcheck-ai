@@ -9,15 +9,18 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@react-three/fiber": "^9.8.1",
+    "@types/three": "0.180.0",
     "next": "^15.5.4",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
+    "three": "0.180.0",
     "vazirmatn": "^33.0.3"
   },
   "devDependencies": {
-    "@types/node": "^22.10.0",
-    "@types/react": "^19.0.0",
-    "@types/react-dom": "^19.0.0",
-    "typescript": "^5.7.0"
+    "@types/node": "^20.17.6",
+    "@types/react": "^19.1.1",
+    "@types/react-dom": "^19.1.1",
+    "typescript": "^5.8.2"
   }
 }
